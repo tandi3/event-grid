@@ -6,7 +6,7 @@ A full-stack event management platform for creating, discovering, and managing e
 
 Explore our live demo:
 
-- **Frontend**: https://event-grid-gilt.vercel.app/
+- **Frontend**: https://event-grid-six.vercel.app/
 - **API Documentation**: https://event-grid.onrender.com
 
 
