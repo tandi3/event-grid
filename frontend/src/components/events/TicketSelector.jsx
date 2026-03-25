@@ -13,23 +13,14 @@ export default function TicketSelector ({ eventId, onChange }) {
     getEventTickets(eventId)
       .then((res) => {
         if (!mounted) return
-        // The response is already formatted as { tickets: [...] } by the service
-        const list = Array.isArray(res.tickets) ? res.tickets : []
+        const list = res.tickets || []
         setTickets(list)
         const initial = {}
-        list.forEach(t => { 
-          if (t && t.id) {
-            initial[t.id] = 0 
-          }
-        })
+        list.forEach(t => { initial[t.id] = 0 })
         setQuantities(initial)
-        setError(list.length === 0 ? 'No ticket types available for this event' : null)
+        setError(null)
       })
-      .catch((err) => {
-        console.error('Error in TicketSelector:', err)
-        setError('Failed to load ticket types. Please try again later.')
-        setTickets([])
-      })
+      .catch((err) => setError(err?.response?.data?.message || 'Failed to load ticket types'))
       .finally(() => mounted && setLoading(false))
     return () => { mounted = false }
   }, [eventId])

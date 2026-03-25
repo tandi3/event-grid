@@ -65,26 +65,33 @@ Explore our live demo:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ryankiprop/event-grid.git
+   git clone https://github.com/yourusername/event-grid.git
    cd event-grid/backend
    ```
 
 2. Create and activate a virtual environment:
    ```bash
-   pipenv install
-   pipenv shell
+   python -m venv venv
+   source venv/bin/activate  # On Windows: .\venv\Scripts\activate
    ```
 
 3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-4. Initialize the database:
+
+4. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
+
+5. Initialize the database:
    ```bash
    flask db upgrade
    ```
 
-5. Run the development server:
+6. Run the development server:
    ```bash
    flask run --port=5000
    ```

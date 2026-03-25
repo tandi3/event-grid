@@ -1,5 +1,11 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
 import { useAuth } from '../../context/AuthContext'
+
+const schema = Yup.object({
+  email: Yup.string().email('Invalid email').required('Required'),
+  password: Yup.string().required('Required'),
+})
 
 export default function Login () {
   const { login } = useAuth()
@@ -8,7 +14,17 @@ export default function Login () {
     <div className='min-h-screen flex items-center justify-center bg-gray-50'>
       <div className='w-full max-w-md bg-white shadow rounded p-6'>
         <h1 className='text-2xl font-semibold mb-4'>Login</h1>
-        <Formik initialValues={{ email: '', password: '' }} onSubmit={login}>
+        <Formik
+          initialValues={{ email: '', password: '' }}
+          validationSchema={schema}
+          onSubmit={async (values, { setFieldError }) => {
+            try {
+              await login(values)
+            } catch (e) {
+              setFieldError('password', e?.response?.data?.message || 'Invalid email or password')
+            }
+          }}
+        >
           {({ isSubmitting }) => (
             <Form className='space-y-4'>
               <div>

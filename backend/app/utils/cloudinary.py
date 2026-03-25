@@ -1,5 +1,6 @@
-import logging
 import os
+
+from flask import current_app
 
 try:
     import cloudinary
@@ -28,7 +29,7 @@ def upload_image(file, folder="eventgrid"):
         str: The secure URL of the uploaded file, or None if upload failed
     """
     if not _configured():
-        logging.error("Cloudinary not configured")
+        current_app.logger.error("Cloudinary not configured")
         return None
         
     try:
@@ -41,9 +42,9 @@ def upload_image(file, folder="eventgrid"):
             with open(file, 'rb') as f:
                 result = cloudinary.uploader.upload(f, folder=folder)
                 
-        logging.info(f"Successfully uploaded image to {result.get('secure_url')}")
+        current_app.logger.info(f"Successfully uploaded image to {result.get('secure_url')}")
         return result.get('secure_url')
         
     except Exception as e:
-        logging.exception("Failed to upload image to Cloudinary")
+        current_app.logger.exception("Failed to upload image to Cloudinary")
         return None
