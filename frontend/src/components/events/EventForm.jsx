@@ -160,13 +160,13 @@ export default function EventForm ({ onCreated }) {
               <Field name='address' className='w-full border rounded px-3 py-2' />
             </div>
             <div>
-              <label className='block text-sm mb-1'>Start (ISO)</label>
-              <Field name='start_date' placeholder='2025-10-15T10:00:00Z' className='w-full border rounded px-3 py-2' />
+              <label className='block text-sm mb-1'>Start Date & Time</label>
+              <Field name='start_date' type='datetime-local' className='w-full border rounded px-3 py-2' />
               <ErrorMessage name='start_date' component='div' className='text-red-600 text-sm' />
             </div>
             <div>
-              <label className='block text-sm mb-1'>End (ISO)</label>
-              <Field name='end_date' placeholder='2025-10-15T12:00:00Z' className='w-full border rounded px-3 py-2' />
+              <label className='block text-sm mb-1'>End Date & Time</label>
+              <Field name='end_date' type='datetime-local' className='w-full border rounded px-3 py-2' />
               <ErrorMessage name='end_date' component='div' className='text-red-600 text-sm' />
             </div>
             <div className='flex items-center gap-2'>

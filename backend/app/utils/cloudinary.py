@@ -1,5 +1,7 @@
 import os
 
+from flask import current_app
+
 try:
     import cloudinary
     import cloudinary.uploader
