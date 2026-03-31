@@ -76,7 +76,7 @@ const TicketTypesManager = ({ eventId, initialTicketTypes = [] }) => {
     }
     
     try {
-      await deleteTicketType(ticketId);
+      await deleteTicketType(eventId, ticketId);
       setTicketTypes(ticketTypes.filter(t => t.id !== ticketId));
     } catch (err) {
       setError('Failed to delete ticket type');

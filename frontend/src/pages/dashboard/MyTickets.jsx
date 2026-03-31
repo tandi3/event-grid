@@ -2,29 +2,27 @@ import { useEffect, useState } from 'react'
 import { getMyOrders } from '../../services/orders'
 import QRCode from 'react-qr-code'
 
-// Format date as 'MMM d, yyyy'
 const formatDate = (dateString) => {
-  if (!dateString) return '';
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-};
-import { format } from 'date-fns'
+  if (!dateString) return ''
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric', month: 'short', day: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  })
+}
 
 export default function MyTickets () {
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     let mounted = true
     getMyOrders().then((res) => {
       if (!mounted) return
       setOrders(res.orders || [])
+    }).catch((e) => {
+      if (!mounted) return
+      setError(e?.response?.data?.message || 'Failed to load tickets')
     }).finally(() => mounted && setLoading(false))
     return () => { mounted = false }
   }, [])
@@ -33,6 +31,7 @@ export default function MyTickets () {
     <div className='max-w-6xl mx-auto p-4'>
       <h1 className='text-2xl font-semibold mb-4'>My Tickets</h1>
       {loading && <div>Loading...</div>}
+      {error && <div className='text-red-600 mb-4'>{error}</div>}
       {!loading && orders.length === 0 && <div>No orders yet.</div>}
       <ul className='space-y-4'>
         {orders.map(o => (

@@ -82,7 +82,7 @@ export default function EventDetails () {
       
       // Navigate to the tickets dashboard or order confirmation
       if (response && response.id) {
-        navigate(`/dashboard/tickets`);
+        navigate(`/dashboard/my-tickets`);
       } else {
         throw new Error('Invalid response from server');
       }

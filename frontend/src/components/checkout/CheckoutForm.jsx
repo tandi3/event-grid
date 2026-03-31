@@ -56,7 +56,7 @@ const CheckoutForm = ({ cart, total, onSuccess }) => {
         
         // Redirect to the tickets page after a short delay
         setTimeout(() => {
-          navigate('/dashboard/tickets');
+          navigate('/dashboard/my-tickets');
         }, 1500);
         
         // Call the onSuccess callback if provided (for any parent components)

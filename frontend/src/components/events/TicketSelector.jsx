@@ -30,7 +30,8 @@ export default function TicketSelector ({ eventId, onChange }) {
       .filter(([, q]) => q > 0)
       .map(([ticket_type_id, quantity]) => ({ ticket_type_id, quantity }))
     onChange?.(items, tickets)
-  }, [quantities, onChange, tickets])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantities, tickets])
 
   const updateQty = (id, delta) => {
     setQuantities(q => ({ ...q, [id]: Math.max(0, (q[id] || 0) + delta) }))
@@ -46,7 +47,7 @@ export default function TicketSelector ({ eventId, onChange }) {
         <div key={t.id} className='flex items-center justify-between border rounded p-3'>
           <div>
             <div className='font-medium'>{t.name}</div>
-            <div className='text-sm text-gray-600'>${(t.price || 0) / 100} • {t.quantity_total - (t.quantity_sold || 0)} left</div>
+            <div className='text-sm text-gray-600'>{t.name} • KES {(t.price || 0) / 100} • {t.quantity_total - (t.quantity_sold || 0)} left</div>
           </div>
           <div className='flex items-center gap-2'>
             <button type='button' className='px-2 py-1 border rounded' onClick={() => updateQty(t.id, -1)}>-</button>
